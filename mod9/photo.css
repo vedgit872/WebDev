@@ -1,0 +1,22 @@
+body {
+    font-family: "Permanent Marker";
+    font-size: 1.5em;
+
+}
+
+nav {
+    position: sticky;
+    border-bottom: 0.2rem solid grey;
+    top: 0;
+    background-color: white;
+    text-transform: uppercase;
+    width: 30%;
+    margin: 0 0 0 1.5%;
+    padding: 1.5% 0;
+}
+
+img {
+    display: inline-block;
+    width: 30%;
+    margin: 1.5%
+}

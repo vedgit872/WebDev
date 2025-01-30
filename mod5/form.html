@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+</head>
+
+<body>
+    <form action="/taco">
+        <p>
+            <!-- labels a inline element -->
+            <label for="username">username</label>
+            <input type="text" id="username" placeholder="Enter username" name="username">
+        </p>
+        <p>
+            <label for="password">Enter password</label>
+            <input type="password" id="password" placeholder="Enter 6-digit password" name="password">
+        </p>
+        <input type="color">
+        <input type="text">
+        <input type="text">
+        <p>
+            <!-- on clicking submit http://127.0.0.1:5500/taco?username=12&password=12 -->
+            <button type="submit">submit</button>
+            <input type="submit" value="click me??">
+        </p>
+    </form>
+    <form action="https://www.google.com/search">
+        <input type="text" name="q">
+        <button>Search Google</button>
+    </form>
+    <form action="https://www.youtube.com/results">
+        <input type="text" name="search_query">
+        <button>Search youtube</button>
+        <!-- without buttonwe can enter to submit -->
+    </form>
+    <form action="/checky">
+        <p>
+            <input type="radio" name="age" id="18+" value="18+">
+            <label for="18+">you are above 18</label>
+            <input type="radio" name="age" id="18-" value="18-">
+            <label for="18-">you are below 18</label>
+        </p>
+        <p>
+            <label for="school">which school do you belong from</label>
+            <select name="school" id="school">
+                <option value="sch1">school1</option>
+                <option value="sch2">school2</option>
+                <option value="sch3">school3</option>
+            </select>
+        </p>
+        <!-- name gives the for what the input is submitted for above age we submit 18+or 18- -->
+        <input type="checkbox" id="agree" name="agree">
+        <label for="agree">I agree to everything</label>
+        <button>submit</button>
+    </form>
+
+
+</body>
+
+</html>
