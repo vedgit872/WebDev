@@ -1,2 +1,3 @@
 const dir = require("./mod32")
-console.log("object is ", dir);
+const col = require("./mod32/node_modules/colors")
+console.log("object is ", dir.greet3.rainbow);
