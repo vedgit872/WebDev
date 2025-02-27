@@ -1,6 +1,7 @@
 const express = require("express");
 const app = express();
 const path = require('path');
+const { v4: uuid } = require('uuid');
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"))
@@ -9,27 +10,27 @@ app.use(express.json());
 console.log(path.join(__dirname, "views"));
 const comments = [
     {
-        id: 1,
+        id: uuid(),
         username: "john_doe",
         comment: "This is an amazing post!"
     },
     {
-        id: 2,
+        id: uuid(),
         username: "alice_wonder",
         comment: "I totally agree with you!"
     },
     {
-        id: 3,
+        id: uuid(),
         username: "bob_smith",
         comment: "Thanks for sharing this information."
     },
     {
-        id: 4,
+        id: uuid(),
         username: "emily_rose",
         comment: "Great insights, keep posting!"
     },
     {
-        id: 5,
+        id: uuid(),
         username: "charlie_99",
         comment: "Loved reading this, well done!"
     }
@@ -39,15 +40,19 @@ app.get("/comments", (req, res) => {
     res.render("comments/index.ejs", { comments });
 })
 app.post("/comments", (req, res) => {
-    const id = comments.length + 1;
     const { username, comment } = req.body;
-    comments.push({ id, username, comment });
-    res.redirect("comments");
+    comments.push({ id: uuid(), username, comment });
+    res.redirect("/comments");
 })
-
 app.get("/comments/new", (req, res) => {
     res.render("comments/new.ejs");
 });
+app.get("/comments/:id", (req, res) => {
+    const { id } = req.params;
+    const comment = comments.find(c => c.id === id);
+    res.render("comments/show.ejs", { comment });
+})
+
 app.get("/burger", (req, res) => {
     const { burger, qty } = req.query;
     res.send(`Here are your ${qty} ${burger} burger`);
