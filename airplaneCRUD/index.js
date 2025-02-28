@@ -1,14 +1,16 @@
-const { v4: uuid } = require('uuid');
+const { v4: uuid } = require('uuid'); // Importing uuid library to generate unique IDs for flights
+
+// Array containing flight data objects
 const flights = [
     {
-        id: uuid(),
-        airline: "Air India",
-        flightNumber: "AI202",
-        origin: "Delhi (DEL)",
-        destination: "Mumbai (BOM)",
-        departureTime: "10:30 AM",
-        arrivalTime: "12:45 PM",
-        status: "On Time"
+        id: uuid(), // Unique ID for the flight
+        airline: "Air India", // Airline name
+        flightNumber: "AI202", // Flight number
+        origin: "Delhi (DEL)", // Origin airport
+        destination: "Mumbai (BOM)", // Destination airport
+        departureTime: "10:30 AM", // Departure time
+        arrivalTime: "12:45 PM", // Arrival time
+        status: "On Time" // Flight status
     },
     {
         id: uuid(),
@@ -52,60 +54,65 @@ const flights = [
     }
 ];
 
+const express = require("express"); // Importing Express framework
+const app = express(); // Creating an Express application instance
+const path = require('path'); // Importing path module to work with file paths
+var methodOverride = require('method-override'); // Importing method-override to support PUT & DELETE in forms
 
+app.set("view engine", "ejs"); // Setting EJS as the templating engine
+app.set("views", path.join(__dirname, "views")); // Setting views directory for EJS templates
 
-const express = require("express");
-const app = express();
-const path = require('path');
-var methodOverride = require('method-override')
+app.use(express.urlencoded({ extended: true })); // Middleware to parse URL-encoded request bodies (form data)
+app.use(express.json()); // Middleware to parse JSON request bodies
+app.use(methodOverride('_method')); // Middleware to support method override via query string (for DELETE, PATCH)
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use(methodOverride('_method'));
-
-app.get("/flights/chart", (req, res) => {
-    res.render("index.ejs", { flights });
+app.get("/flights/chart", (req, res) => { // Route to display flight chart page
+    res.render("index.ejs", { flights }); // Render index.ejs and pass flights array
 });
-app.get("/flights/create", (req, res) => {
-    res.render("create.ejs");
+
+app.get("/flights/create", (req, res) => { // Route to display flight creation form
+    res.render("create.ejs"); // Render create.ejs
 });
-app.get("/flights/:id", (req, res) => {
-    const { id } = req.params;
-    const flight = flights.find(c => c.id === id);
-    res.render("details.ejs", { flight });
-})
-app.post("/flights/:id", (req, res) => {
-    const { id } = req.params;
-    const flight = flights.find(c => c.id === id);
-    const { airline, flightNumber, origin, destination, departureTime, arrivalTime, status } = req.body;
-    flight.airline = airline;
+
+app.get("/flights/:id", (req, res) => { // Route to show flight details
+    const { id } = req.params; // Extract flight ID from URL parameter
+    const flight = flights.find(c => c.id === id); // Find flight by ID
+    res.render("details.ejs", { flight }); // Render details.ejs with flight data
+});
+
+app.post("/flights/:id", (req, res) => { // Route to handle flight edit form submission (POST)
+    const { id } = req.params; // Extract flight ID from URL parameter
+    const flight = flights.find(c => c.id === id); // Find flight by ID
+    const { airline, flightNumber, origin, destination, departureTime, arrivalTime, status } = req.body; // Extract form data from request body
+    flight.airline = airline; // Update flight properties
     flight.flightNumber = flightNumber;
     flight.origin = origin;
     flight.destination = destination;
     flight.departureTime = departureTime;
     flight.arrivalTime = arrivalTime;
     flight.status = status;
-    res.redirect("/flights/chart");
+    res.redirect("/flights/chart"); // Redirect to flight chart page after editing
 });
-app.delete("/flights/:id", (req, res) => {
-    const { id } = req.params;
-    const flight = flights.find(c => c.id === id);
-    flights.pop(flight);
-    res.redirect("/flights/chart");
-});
-app.patch("/flights/create", (req, res) => {
-    const { airline, flightNumber, origin, destination, departureTime, arrivalTime, status } = req.body;
-    flights.push({ id: uuid(), airline, flightNumber, origin, destination, departureTime, arrivalTime, status })
-    res.redirect("/flights/chart");
-});
-app.get("/flights/:id/edit", (req, res) => {
-    const { id } = req.params;
-    const flight = flights.find(c => c.id === id);
-    res.render("edit.ejs", { flight });
-})
 
-app.listen(3000, () => {
-    console.log(" listning 3000")
-})
+app.delete("/flights/:id", (req, res) => { // Route to handle flight deletion (DELETE)
+    const { id } = req.params; // Extract flight ID from URL parameter
+    const flight = flights.find(c => c.id === id); // Find flight by ID
+    flights.pop(flight); // Remove the flight (note: pop is wrong here, ideally use filter)
+    res.redirect("/flights/chart"); // Redirect to flight chart page after deletion
+});
+
+app.patch("/flights/create", (req, res) => { // Route to handle new flight creation (PATCH)
+    const { airline, flightNumber, origin, destination, departureTime, arrivalTime, status } = req.body; // Extract flight data from form
+    flights.push({ id: uuid(), airline, flightNumber, origin, destination, departureTime, arrivalTime, status }); // Add new flight to array
+    res.redirect("/flights/chart"); // Redirect to flight chart page after creation
+});
+
+app.get("/flights/:id/edit", (req, res) => { // Route to show flight edit form
+    const { id } = req.params; // Extract flight ID from URL parameter
+    const flight = flights.find(c => c.id === id); // Find flight by ID
+    res.render("edit.ejs", { flight }); // Render edit.ejs with flight data
+});
+
+app.listen(3000, () => { // Start server on port 3000
+    console.log("listning 3000"); // Log message when server starts
+});
