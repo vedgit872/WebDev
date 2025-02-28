@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight Details - QR571</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        h2 {
+            margin: 0 0 20px;
+            font-size: 28px;
+            color: #007bff;
+        }
+
+        .flight-detail {
+            display: flex;
+            justify-content: space-between;
+            background-color: #f9f9f9;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .flight-detail label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        /* Button container and button styles */
+        .actions {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            /* Even spacing between buttons */
+            align-items: center;
+        }
+
+        .actions a,
+        .actions button {
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .delete-btn:hover {
+            background-color: #c82333;
+        }
+
+        .edit-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .back-btn {
+            background-color: #6c757d;
+            color: white;
+            text-decoration: none;
+        }
+
+        .back-btn:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Flight Details - QR571</h2>
+
+        <div class="flight-detail">
+            <label>Airline:</label>
+            <span>
+                <%= flight.airline %>
+            </span>
+        </div>
+
+        <div class="flight-detail">
+            <label>Flight Number:</label>
+            <span>
+                <%= flight.flightNumber %>
+            </span>
+        </div>
+
+        <div class="flight-detail">
+            <label>Origin:</label>
+            <span>
+                <%= flight.origin %>
+            </span>
+        </div>
+
+        <div class="flight-detail">
+            <label>Destination:</label>
+            <span>
+                <%= flight.destination %>
+            </span>
+        </div>
+
+        <div class="flight-detail">
+            <label>Departure Time:</label>
+            <span>
+                <%= flight.departureTime %>
+            </span>
+        </div>
+
+        <div class="flight-detail">
+            <label>Arrival Time:</label>
+            <span>
+                <%= flight.arrivalTime %>
+            </span>
+        </div>
+
+        <div class="flight-detail">
+            <label>Status:</label>
+            <% if(flight.status==="On Time" ) {%>
+                <span style="color: green; font-weight: bold;">
+                    <%= flight.status %>
+                </span>
+                <% } else { %>
+                    <span style="color: red; font-weight: bold;">
+                        <%= flight.status %>
+                    </span>
+                    <% } %>
+        </div>
+
+        <div class="actions">
+            <a href="/flights/<%= flight.id %>/edit" class="edit-btn">Edit</a>
+
+            <form action="/flights/<%= flight.id %>?_method=DELETE" method="POST" style="margin: 0;">
+                <button type="submit" class="delete-btn">Delete</button>
+            </form>
+
+            <a href="/flights/chart" class="back-btn">Back to Flight Chart</a>
+        </div>
+
+    </div>
+
+</body>
+
+</html>
