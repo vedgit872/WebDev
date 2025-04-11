@@ -4,6 +4,8 @@ import './App.css'
 import  Slots from "./Slots";
 import ShoppingList from "./ShoppingList"
 import RentalProperties from './RentalProperties';
+import Clicker from "./Clicker";
+import Button from './Button';
 
 const items = [
   {
@@ -50,6 +52,9 @@ const properties = [
 function App() {
   return (
     <>
+        <Button message="hi v" onClick="clicked"/>
+        <Clicker />
+        <Clicker />
         <RentalProperties properties={properties}/>
         <ShoppingList items={items}/> 
         {/*
