@@ -1,0 +1,12 @@
+.Container {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    /* 5 columns */
+    grid-template-rows: repeat(5, 1fr);
+    /* 5 rows */
+    width: 500px;
+    /* adjust based on box size */
+    height: 500px;
+    padding: 0;
+    margin: 0;
+}
