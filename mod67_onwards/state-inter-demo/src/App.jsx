@@ -7,6 +7,10 @@ import ScoreKeeperMulti from './ScoreKeeperMulti'
 import LuckyN from "./LuckyN";
 import { sum } from "./utils";
 import BoxGrid from "./BoxGrid";
+import BetterSignUPForm from "./BetterSignupForm"
+import SignUPForm from "./SignupForm"
+import ShoppingList from "./ShoppingList"
+import FormDemo from "./FormDemo"
 function lessThan4(dice) {
   return sum(dice) < 4;
 }
@@ -17,7 +21,12 @@ function allSameValue(dice) {
 function App() {
   return (
     <>
-      <BoxGrid />
+      <FormDemo />
+      {/* <ShoppingList /> */}
+      {/* <ValidateShoppingListForm /> */}
+      {/* <BetterSignUPForm />
+      <SignUPForm /> */}
+      {/* <BoxGrid /> */}
       {/* <LuckyN winCheck={lessThan4} title="Roll less than 4" />
       <LuckyN
         winCheck={allSameValue}
