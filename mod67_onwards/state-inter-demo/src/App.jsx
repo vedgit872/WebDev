@@ -11,6 +11,9 @@ import BetterSignUPForm from "./BetterSignupForm"
 import SignUPForm from "./SignupForm"
 import ShoppingList from "./ShoppingList"
 import FormDemo from "./FormDemo"
+import CounterEffect from './CounterEffect'
+import QuoteFetcher from './QuoteFetcher'
+import QuoteFetcherLoader from './QuoteFetcherLoader'
 function lessThan4(dice) {
   return sum(dice) < 4;
 }
@@ -21,7 +24,10 @@ function allSameValue(dice) {
 function App() {
   return (
     <>
-      <FormDemo />
+      <QuoteFetcherLoader />
+      {/* <QuoteFetcher /> */}
+      {/* <CounterEffect /> */}
+      {/* <FormDemo /> */}
       {/* <ShoppingList /> */}
       {/* <ValidateShoppingListForm /> */}
       {/* <BetterSignUPForm />
